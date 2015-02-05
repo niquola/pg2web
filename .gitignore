@@ -12,3 +12,6 @@ dev/test.log
 dev/perf/observations.sql
 old/*
 .tmp
+.src
+.build
+.data
