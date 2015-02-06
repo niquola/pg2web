@@ -1,21 +1,23 @@
 #!/bin/bash
 
-source .env &&\
 
-rm -rf $SOURCE_DIR &&\
-mkdir $SOURCE_DIR &&\
+source .env
 
-cd $SOURCE_DIR &&\
+sudo apt-get install -qqy libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl make
+
+mkdir -p $SOURCE_DIR
+
+cd $SOURCE_DIR
 
 VERSION='ngx_openresty-1.7.7.1'
 URL="http://openresty.org/download/$VERSION.tar.gz"
-rm -rf openresty* &&\
-curl -o openresty.tar.gz $URL &&\
-tar xzvf openresty.tar.gz &&\
-mv $VERSION openresty &&\
-rm openresty.tar.gz &&\
+curl -o openresty.tar.gz $URL
+tar xzvf openresty.tar.gz
+mv $VERSION openresty
+rm openresty.tar.gz
 
-cd openresty &&\
+cd openresty
+
 
 ./configure --prefix=$BUILD_DIR \
   --with-luajit \
@@ -24,10 +26,6 @@ cd openresty &&\
   --with-ipv6 \
   --with-libpq=$BUILD_DIR \
   --with-http_postgres_module \
-  -j4 &&\
+  -j4
 
 make & make install
-
-#rm  nginx/conf/nginx.conf
-#ln -s `pwd`/nginx.conf nginx/conf/nginx.conf
-#ls -lah nginx/conf/nginx.conf
