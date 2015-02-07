@@ -63,12 +63,10 @@ func! get_action_roles(req jsonb) returns jsonb
   select '{"a":1}'::jsonb
 
 func! get_action_countries(_req_ jsonb) returns jsonb
-  select json_agg(c.*)::jsonb
-    from this.countries c
-     where name ilike '%' || COALESCE((_req_#>>'{params,q}'), '') || '%'
-      limit 20
+  select json_agg(x.*)::jsonb
+    from ( select c.* from this.countries c limit 20) x
 
 func! get_action_procs(req jsonb) RETURNS jsonb
   SELECT json_agg(pg_proc.*)::jsonb
     FROM pg_proc
-   WHERE proname ilike '%_action_%'
+   --WHERE proname ilike '%_action_%'

@@ -5,3 +5,4 @@ ln -s cfg/nginx.conf .build/nginx/conf/nginx.conf
 ls -lah .build/nginx/conf/nginx.conf
 
 nginx -s reload -c cfg/nginx.conf
+#$PG_BIN/pg_ctl -D $PGDATA start
